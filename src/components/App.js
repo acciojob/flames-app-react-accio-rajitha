@@ -29,14 +29,16 @@ class App extends Component {
     let str1 = name1.split("");
     let str2 = name2.split("");
 
-    // Remove common letters from both strings
-    str1.forEach((letter, index) => {
-      if (str2.includes(letter)) {
-        const pos = str2.indexOf(letter);
+    let i = 0;
+    while (i < str1.length) {
+      if (str2.includes(str1[i])) {
+        const pos = str2.indexOf(str1[i]);
         str2.splice(pos, 1);
-        str1.splice(index, 1);
+        str1.splice(i, 1);
+      } else {
+        i++;
       }
-    });
+    }
 
     // Calculate the remaining character count
     const remainingCount = str1.length + str2.length;
@@ -115,8 +117,8 @@ class App extends Component {
           </button>
         </div>
 
-        {error && <h3>{error}</h3>}
-        {result && <h3 data-testid="answer">{result}</h3>}
+        {/* Always render h3, either displaying the error or result */}
+        <h3 data-testid="answer">{error || result}</h3>
       </div>
     );
   }
